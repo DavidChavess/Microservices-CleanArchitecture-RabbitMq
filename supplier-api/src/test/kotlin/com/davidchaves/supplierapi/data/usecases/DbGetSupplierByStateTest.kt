@@ -1,7 +1,7 @@
 package com.davidchaves.supplierapi.data.usecases
 
 import com.davidchaves.supplierapi.data.exception.SupplierNotFound
-import com.davidchaves.supplierapi.infra.SupplierJpaRepository
+import com.davidchaves.supplierapi.data.protocols.SupplierRepository
 import com.davidchaves.supplierapi.domain.model.Supplier
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -14,13 +14,13 @@ import org.mockito.Mock
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(value = [SpringExtension::class])
-class GetSupplierByStateRepositoryTest {
+class DbGetSupplierByStateTest {
 
     @Mock
-    private lateinit var supplierRepository: SupplierJpaRepository
+    private lateinit var supplierRepository: SupplierRepository
 
     @InjectMocks
-    private lateinit var getSupplierByStateRepository: GetSupplierByStateRepository
+    private lateinit var dbGetSupplierByState: DbGetSupplierByState
 
     @Test
     @DisplayName("Deve buscar fornecedor por estado")
@@ -28,7 +28,7 @@ class GetSupplierByStateRepositoryTest {
         given(supplierRepository.getByState("SP"))
             .willReturn(Supplier("Supplier 1", "Rua teste", "145", "SP"))
 
-        val supplier: Supplier = getSupplierByStateRepository.getSupplierByState("SP")
+        val supplier: Supplier = dbGetSupplierByState.getSupplierByState("SP")
 
         assertEquals(Supplier("Supplier 1", "Rua teste", "145", "SP"), supplier)
     }
@@ -37,6 +37,6 @@ class GetSupplierByStateRepositoryTest {
     @DisplayName("Deve retornar fornecedor não encontrado")
     fun shouldReturnSupplierNotFound() {
         given(supplierRepository.getByState("SP")).willReturn(null)
-        assertThrows<SupplierNotFound> { getSupplierByStateRepository.getSupplierByState("SP") }
+        assertThrows<SupplierNotFound> { dbGetSupplierByState.getSupplierByState("SP") }
     }
 }

@@ -1,4 +1,4 @@
-package com.davidchaves.supplierapi.infra
+package com.davidchaves.supplierapi.infra.db.supplier
 
 import com.davidchaves.supplierapi.data.protocols.SupplierRepository
 import com.davidchaves.supplierapi.domain.model.Supplier

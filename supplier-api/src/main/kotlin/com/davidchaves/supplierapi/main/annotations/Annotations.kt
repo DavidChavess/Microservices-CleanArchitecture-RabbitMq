@@ -8,5 +8,4 @@ typealias Repository = Repository
 
 typealias Service = Service
 
-typealias Controller = Controller
-
+typealias ControllerComponent = Controller

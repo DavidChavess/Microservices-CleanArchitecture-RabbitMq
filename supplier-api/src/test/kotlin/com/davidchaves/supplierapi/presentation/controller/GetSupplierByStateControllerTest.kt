@@ -1,10 +1,9 @@
-package com.davidchaves.supplierapi.presentation
+package com.davidchaves.supplierapi.presentation.controller
 
 import com.davidchaves.supplierapi.data.exception.SupplierNotFound
-import com.davidchaves.supplierapi.domain.model.GetSupplierFilter
+import com.davidchaves.supplierapi.domain.usecases.GetSupplierByStateModel
 import com.davidchaves.supplierapi.domain.model.Supplier
 import com.davidchaves.supplierapi.domain.usecases.GetSupplierByState
-import com.davidchaves.supplierapi.presentation.controller.GetSupplierByStateController
 import com.davidchaves.supplierapi.presentation.protocols.HttpRequest
 import com.davidchaves.supplierapi.presentation.protocols.HttpResponse
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -31,7 +30,7 @@ class GetSupplierByStateControllerTest {
         given(getSupplierByState.getSupplierByState("SP"))
             .willReturn(Supplier("Supplier 1", "Rua teste", "145", "SP"))
 
-        val httpRequest = HttpRequest(body = GetSupplierFilter(state = "SP"))
+        val httpRequest = HttpRequest(body = GetSupplierByStateModel(state = "SP"))
         val httpResponse: HttpResponse = getSupplierByStateController.handle(httpRequest)
 
         assertEquals(200, httpResponse.statusCode)
@@ -44,7 +43,7 @@ class GetSupplierByStateControllerTest {
         given(getSupplierByState.getSupplierByState("SP"))
             .willThrow(SupplierNotFound())
 
-        val httpRequest = HttpRequest(body = GetSupplierFilter(state = "SP"))
+        val httpRequest = HttpRequest(body = GetSupplierByStateModel(state = "SP"))
         val httpResponse: HttpResponse = getSupplierByStateController.handle(httpRequest)
 
         assertEquals(404, httpResponse.statusCode)

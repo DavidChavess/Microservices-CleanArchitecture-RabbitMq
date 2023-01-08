@@ -7,7 +7,7 @@ import com.davidchaves.supplierapi.domain.usecases.GetSupplierByState
 import com.davidchaves.supplierapi.main.annotations.Service
 
 @Service
-class GetSupplierByStateRepository(private val supplierRepository: SupplierRepository) : GetSupplierByState {
+class DbGetSupplierByState(private val supplierRepository: SupplierRepository) : GetSupplierByState {
     override fun getSupplierByState(state: String): Supplier =
         supplierRepository.getByState(state) ?: throw SupplierNotFound()
 }

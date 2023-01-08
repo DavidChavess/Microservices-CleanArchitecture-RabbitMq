@@ -1,4 +1,4 @@
-package com.davidchaves.supplierapi.infra
+package com.davidchaves.supplierapi.infra.db.supplier
 
 import javax.persistence.Table
 import javax.persistence.Entity
