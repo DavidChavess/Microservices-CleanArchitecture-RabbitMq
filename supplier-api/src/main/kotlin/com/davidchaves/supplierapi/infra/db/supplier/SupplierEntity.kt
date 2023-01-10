@@ -10,10 +10,10 @@ import javax.persistence.GenerationType
 @Table(name = "supplier")
 class SupplierEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Int,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int? = null,
     val name: String,
     val address: String,
     val zipcode: String,
     val state: String
-) {}
+)
