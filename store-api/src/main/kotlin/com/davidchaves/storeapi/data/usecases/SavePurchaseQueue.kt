@@ -7,12 +7,10 @@ import com.davidchaves.storeapi.domain.usecases.SavePurchase
 import com.davidchaves.storeapi.main.annotations.Component
 
 @Component
-class SavePurchaseQueue(
-    private val sendToQueue: SendToQueue
-) : SavePurchase {
+class SavePurchaseQueue(private val sendToQueue: SendToQueue) : SavePurchase {
 
     override fun save(purchase: SavePurchaseModel): Purchase {
         sendToQueue.sendToQueue("purchase-queue", purchase)
-        return Purchase("CREATED")
+        return Purchase("PENDING")
     }
 }
