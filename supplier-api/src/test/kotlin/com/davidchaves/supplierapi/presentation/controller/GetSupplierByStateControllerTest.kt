@@ -1,9 +1,9 @@
 package com.davidchaves.supplierapi.presentation.controller
 
 import com.davidchaves.supplierapi.data.exception.SupplierNotFound
-import com.davidchaves.supplierapi.domain.usecases.GetSupplierByStateModel
 import com.davidchaves.supplierapi.domain.model.Supplier
 import com.davidchaves.supplierapi.domain.usecases.GetSupplierByState
+import com.davidchaves.supplierapi.domain.usecases.model.GetSupplierByStateModel
 import com.davidchaves.supplierapi.presentation.protocols.HttpRequest
 import com.davidchaves.supplierapi.presentation.protocols.HttpResponse
 import org.junit.jupiter.api.Assertions.assertEquals
