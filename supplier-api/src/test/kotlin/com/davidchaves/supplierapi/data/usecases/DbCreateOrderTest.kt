@@ -3,9 +3,12 @@ package com.davidchaves.supplierapi.data.usecases
 import com.davidchaves.supplierapi.data.exception.ProductNotFoundException
 import com.davidchaves.supplierapi.data.protocols.OrderRepository
 import com.davidchaves.supplierapi.data.protocols.ProductRepository
+import com.davidchaves.supplierapi.domain.model.Order
+import com.davidchaves.supplierapi.domain.model.OrderItem
 import com.davidchaves.supplierapi.domain.model.Product
 import com.davidchaves.supplierapi.domain.usecases.model.OrderItemModel
 import com.davidchaves.supplierapi.domain.usecases.model.OrderModel
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -44,7 +47,6 @@ class DbCreateOrderTest {
         val item2 = OrderItemModel("uuid2", BigDecimal(2))
 
         dbCreateOrder.createOrder(OrderModel(listOf(item1, item2)))
-
         verify(productRepository).findByUuidIn(listOf("uuid1", "uuid2"))
     }
 
@@ -66,21 +68,25 @@ class DbCreateOrderTest {
     }
 
     @Test
-    @DisplayName("Deve chamar salvamento de pedido com valores corretos")
+    @DisplayName("Deve chamar salvamento de pedido com valores corretos e calcular o total dos itens")
     fun shouldCreateOrderWithCorrectValues() {
-        given(productRepository.findByUuidIn(listOf("uuid1", "uuid2")))
-            .willReturn(
-                listOf(
-                    Product(1, "uuid1", "product1", "", BigDecimal(1)),
-                    Product(2, "uuid2", "product2", "", BigDecimal(1))
+        val products = listOf(
+            Product(1, "uuid1", "product1", "", BigDecimal(2)),
+        )
+        given(productRepository.findByUuidIn(listOf("uuid1"))).willReturn(products)
+
+        val item = OrderItemModel("uuid1", BigDecimal(2))
+        val orderModel = OrderModel(listOf(item))
+        val order = dbCreateOrder.createOrder(orderModel)
+
+        assertEquals(BigDecimal(4), order.total)
+        verify(productRepository).findByUuidIn(listOf("uuid1"))
+        verify(orderRepository).save(
+            Order(
+                items = listOf(
+                    OrderItem(product = products[0], BigDecimal(2))
                 )
             )
-
-        val item1 = OrderItemModel("uuid1", BigDecimal(2))
-        val item2 = OrderItemModel("uuid2", BigDecimal(2))
-
-        dbCreateOrder.createOrder(OrderModel(listOf(item1, item2)))
-
-        verify(productRepository).findByUuidIn(listOf("uuid1", "uuid2"))
+        )
     }
 }

@@ -1,9 +1,10 @@
 package com.davidchaves.supplierapi.domain.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.math.BigDecimal
 
 data class Product(
-    val id: Int,
+    @JsonIgnore val id: Int,
     val uuid: String,
     val name: String,
     val description: String?,

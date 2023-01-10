@@ -34,8 +34,15 @@ class CreateOrderControllerTest {
     @DisplayName("Deve criar pedido")
     fun shouldCreateOrder() {
         val orderModel = OrderModel(listOf(OrderItemModel(productUuid = "uuid1", quantity = BigDecimal(2))))
-
-        given(createOrder.createOrder(orderModel)).willReturn(getOrder())
+        val product = Product(
+            id = 1,
+            uuid = "uuid1",
+            name = "any product",
+            description = "any description",
+            price = BigDecimal(4)
+        )
+        given(createOrder.createOrder(orderModel))
+            .willReturn(Order(items = listOf(OrderItem(product, BigDecimal(2)))))
 
         val httpResponse: HttpResponse = createOrderController.handle(HttpRequest(body = orderModel))
         val orderResponse = httpResponse.body as Order
@@ -56,17 +63,5 @@ class CreateOrderControllerTest {
         assertEquals(400, httpResponse.statusCode)
         assertEquals(ErrorResponse("any error"), httpResponse.body)
         verify(createOrder).createOrder(orderModel)
-    }
-
-    private fun getOrder(): Order {
-        val product =
-            Product(
-                id = 1,
-                uuid = "uuid1",
-                name = "any product",
-                description = "any description",
-                price = BigDecimal(4)
-            )
-        return Order(null, listOf(OrderItem(product = product, quantity = BigDecimal(2))))
     }
 }

@@ -26,10 +26,9 @@ class DbCreateOrder(
 
     private fun mapToOrder(orderModel: OrderModel, products: List<Product>): Order {
         val items: List<OrderItem> = orderModel.items.map {
-            val product =
-                products.find { product -> product.uuid == it.productUuid } ?: throw ProductNotFoundException()
+            val product = products.find { product -> product.uuid == it.productUuid } ?: throw ProductNotFoundException()
             OrderItem(product, it.quantity)
         }
-        return Order(null, items)
+        return Order(items = items)
     }
 }
