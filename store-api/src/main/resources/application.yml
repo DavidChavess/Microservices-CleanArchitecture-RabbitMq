@@ -8,3 +8,7 @@ spring:
     active: local
 server:
   port: 8081
+
+queues:
+  purchase:
+    name: "purchase-queue"

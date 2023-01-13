@@ -7,12 +7,10 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.messaging.handler.annotation.Payload
 
 @Component
-class CreateOrderConsumer(
-    private val createOrder: CreateOrder
-) {
+class CreateOrderConsumer(private val createOrder: CreateOrder) {
 
-    @RabbitListener(queues = ["purchase-queue"])
-    fun receive(@Payload() purchase: SavePurchaseModel) {
+    @RabbitListener(queues = ["\${queues.purchase.name}"])
+    fun consume(@Payload purchase: SavePurchaseModel) {
         val order = createOrder.create(purchase)
         println("Message $purchase")
         println("Order $order")
