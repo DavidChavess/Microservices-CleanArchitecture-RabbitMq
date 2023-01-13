@@ -15,3 +15,4 @@ server:
 queues:
   purchase:
     name: "purchase-queue"
+    exchange: "purchase-exchange"

@@ -16,5 +16,6 @@ data class DeliveryAddressModel(
 
 data class SavePurchaseModel(
     val items: List<PurchaseItemModel>,
-    val deliveryAddress: DeliveryAddressModel
+    val deliveryAddress: DeliveryAddressModel,
+    var status: String?
 ) : Serializable

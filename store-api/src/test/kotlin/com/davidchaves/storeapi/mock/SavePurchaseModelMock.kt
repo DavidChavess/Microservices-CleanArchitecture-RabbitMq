@@ -12,7 +12,9 @@ class SavePurchaseModelMock {
                 listOf(
                     PurchaseItemModel("uuid 1", BigDecimal.TEN),
                     PurchaseItemModel("uuid 2", BigDecimal.TEN)
-                ), DeliveryAddressModel("Fulano", "Rua teste", "14.440.000")
+                ),
+                DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
+                "PENDING"
             )
         }
 
@@ -20,7 +22,8 @@ class SavePurchaseModelMock {
             return SavePurchaseModel(
                 listOf(
                     PurchaseItemModel("uuid 1", BigDecimal.TEN),
-                ), DeliveryAddressModel("Fulano", "Rua teste", "14.440.000")
+                ), DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
+                "PENDING"
             )
         }
     }

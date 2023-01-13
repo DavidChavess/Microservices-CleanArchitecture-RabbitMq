@@ -10,11 +10,12 @@ import com.davidchaves.storeapi.main.annotations.Property
 @Component
 class SavePurchaseQueue(
     private val sendToQueue: SendToQueue,
-    @Property("\${queues.purchase.name}") private val queueName: String
+    @Property("\${queues.purchase.exchange}") private val exchange: String
 ) : SavePurchase {
 
     override fun save(purchase: SavePurchaseModel): Purchase {
-        sendToQueue.sendToQueue(queueName, purchase)
-        return Purchase("PENDING")
+        purchase.status = "PENDING"
+        sendToQueue.sendToQueue(exchange, purchase)
+        return Purchase(purchase.status!!)
     }
 }

@@ -7,10 +7,10 @@ import java.io.Serializable
 
 @Component
 class RabbitMqQueue(
-    private val rabbitTemplate: RabbitTemplate,
+    private val rabbitTemplate: RabbitTemplate
 ) : SendToQueue {
 
     override fun sendToQueue(queue: String, message: Serializable) {
-        rabbitTemplate.convertAndSend(queue, message)
+        rabbitTemplate.convertAndSend(queue, "", message)
     }
 }
