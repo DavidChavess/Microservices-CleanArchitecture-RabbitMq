@@ -17,7 +17,7 @@ class PurchaseController(
     override fun handle(httpRequest: HttpRequest): HttpResponse {
         return try {
             val purchase = httpRequest.body as SavePurchaseModel
-            HttpResponse(201, savePurchase.save(purchase))
+            HttpResponse.created(savePurchase.save(purchase))
         } catch (ex: StoreException) {
             HttpResponse(ex.statusCode, ErrorResponse(ex.message, ex.errorDescription))
         }
