@@ -11,9 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.mockito.junit.jupiter.MockitoExtension
 
-@ExtendWith(value = [SpringExtension::class])
+@ExtendWith(value = [MockitoExtension::class])
 class DbGetSupplierByStateTest {
 
     @Mock

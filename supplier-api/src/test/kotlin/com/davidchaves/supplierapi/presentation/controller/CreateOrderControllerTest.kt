@@ -18,10 +18,10 @@ import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.verify
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.mockito.junit.jupiter.MockitoExtension
 import java.math.BigDecimal
 
-@ExtendWith(value = [SpringExtension::class])
+@ExtendWith(value = [MockitoExtension::class])
 class CreateOrderControllerTest {
 
     @Mock

@@ -17,10 +17,10 @@ import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.verify
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.mockito.junit.jupiter.MockitoExtension
 import java.math.BigDecimal
 
-@ExtendWith(value = [SpringExtension::class])
+@ExtendWith(value = [MockitoExtension::class])
 class DbCreateOrderTest {
 
     @Mock
