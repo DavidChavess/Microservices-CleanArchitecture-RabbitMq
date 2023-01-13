@@ -11,13 +11,4 @@ class RabbitMqConfig {
 
     @Bean
     fun purchaseQueue(): Queue = Queue("purchase-queue", true)
-
-    @Bean
-    fun obaQueue(): Queue = Queue("oba-queue", true)
-
-    @Bean
-    fun aaQueue(): Queue = Queue("aa-queue", true)
-
-    @Bean
-    fun bbQueue(): Queue = Queue("bb-queue", true)
 }

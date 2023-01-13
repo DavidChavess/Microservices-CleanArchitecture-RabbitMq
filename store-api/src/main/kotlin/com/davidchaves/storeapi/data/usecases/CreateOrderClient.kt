@@ -10,6 +10,5 @@ import com.davidchaves.storeapi.main.annotations.Component
 class CreateOrderClient(private val supplierClient: SupplierClient) : CreateOrder {
 
     override fun create(purchase: SavePurchaseModel): Order =
-        supplierClient.create(purchase)
-
+        supplierClient.createOrder(purchase)
 }

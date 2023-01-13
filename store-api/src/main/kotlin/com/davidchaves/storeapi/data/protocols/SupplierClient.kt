@@ -4,5 +4,5 @@ import com.davidchaves.storeapi.domain.models.Order
 import com.davidchaves.storeapi.domain.models.SavePurchaseModel
 
 interface SupplierClient {
-    fun create(purchase: SavePurchaseModel): Order
+    fun createOrder(purchase: SavePurchaseModel): Order
 }
