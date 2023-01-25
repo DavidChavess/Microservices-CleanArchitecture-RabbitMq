@@ -1,6 +1,6 @@
 package com.davidchaves.supplierapi.main.spring.controller
 
-import com.davidchaves.supplierapi.domain.usecases.model.OrderModel
+import com.davidchaves.supplierapi.domain.usecases.PurchaseModel
 import com.davidchaves.supplierapi.presentation.protocols.Controller
 import com.davidchaves.supplierapi.presentation.protocols.HttpRequest
 import org.springframework.beans.factory.annotation.Qualifier
@@ -18,8 +18,8 @@ class CreateOrderRestController(
 ) {
 
     @PostMapping
-    fun createOrder(@RequestBody createOrderModel: OrderModel): ResponseEntity<Any> {
-        val httpResponse = controller.handle(HttpRequest(body = createOrderModel))
+    fun createOrder(@RequestBody createPurchaseModel: PurchaseModel): ResponseEntity<Any> {
+        val httpResponse = controller.handle(HttpRequest(body = createPurchaseModel))
         return ResponseEntity.status(httpResponse.statusCode).body(httpResponse.body)
     }
 }

@@ -5,8 +5,8 @@ import com.davidchaves.supplierapi.domain.model.Order
 import com.davidchaves.supplierapi.domain.model.OrderItem
 import com.davidchaves.supplierapi.domain.model.Product
 import com.davidchaves.supplierapi.domain.usecases.CreateOrder
-import com.davidchaves.supplierapi.domain.usecases.model.OrderItemModel
-import com.davidchaves.supplierapi.domain.usecases.model.OrderModel
+import com.davidchaves.supplierapi.domain.usecases.PurchaseItemModel
+import com.davidchaves.supplierapi.domain.usecases.PurchaseModel
 import com.davidchaves.supplierapi.presentation.protocols.ErrorResponse
 import com.davidchaves.supplierapi.presentation.protocols.HttpRequest
 import com.davidchaves.supplierapi.presentation.protocols.HttpResponse
@@ -33,7 +33,7 @@ class CreateOrderControllerTest {
     @Test
     @DisplayName("Deve criar pedido")
     fun shouldCreateOrder() {
-        val orderModel = OrderModel(listOf(OrderItemModel(productUuid = "uuid1", quantity = BigDecimal(2))))
+        val purchaseModel = PurchaseModel("purchase id", listOf(PurchaseItemModel(productUuid = "uuid1", quantity = BigDecimal(2))))
         val product = Product(
             id = 1,
             uuid = "uuid1",
@@ -41,27 +41,30 @@ class CreateOrderControllerTest {
             description = "any description",
             price = BigDecimal(4)
         )
-        given(createOrder.createOrder(orderModel))
-            .willReturn(Order(items = listOf(OrderItem(product, BigDecimal(2)))))
+        given(createOrder.createOrder(purchaseModel))
+            .willReturn(Order(purchaseId= "purchase id", items = listOf(OrderItem(product, BigDecimal(2)))))
 
-        val httpResponse: HttpResponse = createOrderController.handle(HttpRequest(body = orderModel))
+        val httpResponse: HttpResponse = createOrderController.handle(HttpRequest(body = purchaseModel))
         val orderResponse = httpResponse.body as Order
 
         assertEquals(201, httpResponse.statusCode)
         assertEquals(orderResponse.total, BigDecimal(8))
-        verify(createOrder).createOrder(orderModel)
+        verify(createOrder).createOrder(purchaseModel)
     }
 
     @Test
     @DisplayName("Deve repassar erro se createOrder lançar")
     fun shouldThrowErrorIfCreateOrderThrows() {
-        val orderModel = OrderModel(listOf(OrderItemModel("any product uuid", BigDecimal(2))))
-        given(createOrder.createOrder(orderModel)).willThrow(SupplierException("any error", 400))
+        val purchaseModel = PurchaseModel(
+            "purchase id",
+            listOf(PurchaseItemModel("any product uuid", BigDecimal(2)))
+        )
+        given(createOrder.createOrder(purchaseModel)).willThrow(SupplierException("any error", 400))
 
-        val httpResponse: HttpResponse = createOrderController.handle(HttpRequest(body = orderModel))
+        val httpResponse: HttpResponse = createOrderController.handle(HttpRequest(body = purchaseModel))
 
         assertEquals(400, httpResponse.statusCode)
         assertEquals(ErrorResponse("any error"), httpResponse.body)
-        verify(createOrder).createOrder(orderModel)
+        verify(createOrder).createOrder(purchaseModel)
     }
 }

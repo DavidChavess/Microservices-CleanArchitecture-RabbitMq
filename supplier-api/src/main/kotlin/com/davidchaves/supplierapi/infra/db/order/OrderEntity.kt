@@ -18,9 +18,10 @@ class OrderEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int? = null,
-    val uuid: String,
+    val purchaseId: String,
     val total: BigDecimal,
-    val createdOn: OffsetDateTime? = OffsetDateTime.now(),
+    val createdOn: OffsetDateTime = OffsetDateTime.now(),
+    val preparationTimeInMinutes: Int,
     @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     val items: List<ItemEntity>
 )

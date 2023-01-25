@@ -5,7 +5,6 @@ import com.davidchaves.supplierapi.domain.model.Order
 import com.davidchaves.supplierapi.infra.db.order.item.ItemEntity
 import com.davidchaves.supplierapi.infra.db.product.ProductEntity
 import com.davidchaves.supplierapi.main.annotations.Repository
-import java.util.UUID
 
 @Repository
 class OrderRepositoryImpl(private val orderJpaRepository: OrderJpaRepository) : OrderRepository {
@@ -19,9 +18,10 @@ class OrderRepositoryImpl(private val orderJpaRepository: OrderJpaRepository) : 
         }
         val orderEntity =
             OrderEntity(
-                uuid = UUID.randomUUID().toString(),
+                purchaseId = order.purchaseId,
                 total = order.total,
-                items = itemsEntity
+                items = itemsEntity,
+                preparationTimeInMinutes = order.preparationTimeInMinutes,
             )
 
         itemsEntity.forEach { it.order = orderEntity }

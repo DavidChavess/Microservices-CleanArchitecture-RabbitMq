@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service
 
 typealias Repository = Repository
 
-typealias Service = Service
+typealias UseCase = Service
 
 typealias ControllerComponent = Controller
