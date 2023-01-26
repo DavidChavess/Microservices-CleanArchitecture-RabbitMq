@@ -1,4 +1,4 @@
-package com.davidchaves.supplierapi.main.spring
+package com.davidchaves.supplierapi
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
