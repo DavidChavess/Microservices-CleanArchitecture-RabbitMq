@@ -44,7 +44,33 @@ dependencies {
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 }
 
+apply plugin: 'jacoco'
 apply plugin: "kotlin-jpa"
+
+jacoco {
+	toolVersion = "0.8.8"
+	reportsDirectory.set(layout.buildDirectory.dir("reportsJaCoCo"))
+}
+
+jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		xml.enabled false
+		html.enabled true
+		csv.enabled false
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"com/baeldung/**/ExcludedPOJO.class",
+					"com/baeldung/**/*DTO.*",
+					"**/config/*",
+					"com/davidchaves/supplierapi/main/spring/SupplierApiApplication*"
+			])
+		}))
+	}
+}
 
 dependencyManagement {
 	imports {
@@ -61,4 +87,5 @@ tasks.withType(KotlinCompile) {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy(tasks.jacocoTestReport)//Code coverage will be generated every time tests run.
 }
