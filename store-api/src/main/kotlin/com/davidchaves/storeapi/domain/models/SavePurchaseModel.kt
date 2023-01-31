@@ -11,10 +11,11 @@ data class PurchaseItemModel(
 data class DeliveryAddressModel(
     val receiver: String,
     val address: String,
-    val zipCode: String,
+    val zipCode: String?,
 ) : Serializable
 
 data class SavePurchaseModel(
+    val id: String?,
     val items: List<PurchaseItemModel>,
     val deliveryAddress: DeliveryAddressModel,
     var status: String?

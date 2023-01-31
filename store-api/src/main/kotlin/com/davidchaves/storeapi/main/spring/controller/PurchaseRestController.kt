@@ -1,4 +1,4 @@
-package com.davidchaves.storeapi.main.rest
+package com.davidchaves.storeapi.main.spring.controller
 
 import com.davidchaves.storeapi.domain.models.SavePurchaseModel
 import com.davidchaves.storeapi.presentation.protocols.Controller

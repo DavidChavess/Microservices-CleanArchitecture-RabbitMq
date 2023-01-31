@@ -9,21 +9,22 @@ class SavePurchaseModelMock {
     companion object SavePurchaseModelMock {
         fun purchaseModelWithTwoProductsMock(): SavePurchaseModel {
             return SavePurchaseModel(
-                listOf(
+                id = "any id",
+                items = listOf(
                     PurchaseItemModel("uuid 1", BigDecimal.TEN),
                     PurchaseItemModel("uuid 2", BigDecimal.TEN)
                 ),
-                DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
-                "PENDING"
+                deliveryAddress = DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
+                status = "PENDING"
             )
         }
 
         fun purchaseModelWithOneProductMock(): SavePurchaseModel {
             return SavePurchaseModel(
-                listOf(
-                    PurchaseItemModel("uuid 1", BigDecimal.TEN),
-                ), DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
-                "PENDING"
+                id = "any id",
+                items = listOf(PurchaseItemModel("uuid 1", BigDecimal.TEN)),
+                deliveryAddress = DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
+                status = "PENDING"
             )
         }
     }

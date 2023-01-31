@@ -19,5 +19,6 @@ data class OrderItem(
 data class Order(
     val id: Int,
     val items: List<OrderItem>,
-    val total: BigDecimal
+    val total: BigDecimal,
+    val preparationTimeInMinutes: Int
 )

@@ -1,4 +1,4 @@
-package com.davidchaves.storeapi.main.config
+package com.davidchaves.storeapi.main.spring.config
 
 import org.springframework.amqp.core.Queue
 import org.springframework.amqp.core.FanoutExchange

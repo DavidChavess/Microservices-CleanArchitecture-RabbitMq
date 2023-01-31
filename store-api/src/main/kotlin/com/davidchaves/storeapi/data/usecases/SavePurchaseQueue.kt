@@ -6,6 +6,7 @@ import com.davidchaves.storeapi.domain.models.SavePurchaseModel
 import com.davidchaves.storeapi.domain.usecases.SavePurchase
 import com.davidchaves.storeapi.main.annotations.Component
 import com.davidchaves.storeapi.main.annotations.Property
+import java.util.UUID
 
 @Component
 class SavePurchaseQueue(
@@ -14,8 +15,11 @@ class SavePurchaseQueue(
 ) : SavePurchase {
 
     override fun save(purchase: SavePurchaseModel): Purchase {
-        purchase.status = "PENDING"
-        sendToQueue.sendToQueue(exchange, purchase)
-        return Purchase(purchase.status!!)
+        val savePurchaseModel = purchase.copy(
+            id = UUID.randomUUID().toString(),
+            status = "PENDING"
+        )
+        sendToQueue.sendToQueue(exchange, savePurchaseModel)
+        return Purchase(savePurchaseModel.id!!, savePurchaseModel.status!!)
     }
 }

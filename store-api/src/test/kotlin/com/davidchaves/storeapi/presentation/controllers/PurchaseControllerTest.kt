@@ -28,7 +28,7 @@ class PurchaseControllerTest {
     @DisplayName("Deve chamar método para salvar compra passando os valores corretos")
     fun shouldCallSavePurchaseWithCorrectValues() {
         val purchase = purchaseModelWithTwoProductsMock()
-        given(savePurchase.save(purchase)).willReturn(Purchase("CREATED"))
+        given(savePurchase.save(purchase)).willReturn(Purchase("any id", "CREATED"))
         val httpResponse = controller.handle(HttpRequest(purchase))
         verify(savePurchase, times(1)).save(purchase)
         assertEquals(201, httpResponse.statusCode)
