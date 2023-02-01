@@ -27,8 +27,8 @@ class SavePurchaseQueueTest {
     }
 
     @Test
-    @DisplayName("Deve enviar compra para a fila de compras")
-    fun shouldThrowIfProductsNotFound() {
+    @DisplayName("Deve salvar compra com sucesso")
+    fun shouldSavePurchase() {
         val purchase = purchaseModelWithTwoProductsMock()
         val purchaseResponse = savePurchase.save(purchase)
         assertEquals("PENDING", purchaseResponse.status)

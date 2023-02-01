@@ -6,7 +6,7 @@ spring:
     password: guest
     listener:
       simple:
-        auto-startup: false
+        auto-startup: true
   profiles:
     active: local
 server:
@@ -16,3 +16,5 @@ queues:
   purchase:
     name: "purchase-queue"
     exchange: "purchase-exchange"
+  payment:
+    exchange: "payment-exchange"
