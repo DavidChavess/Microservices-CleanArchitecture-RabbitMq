@@ -7,8 +7,8 @@ import java.math.BigDecimal
 
 class SavePurchaseModelMock {
     companion object SavePurchaseModelMock {
-        fun purchaseModelWithTwoProductsMock(): SavePurchaseModel {
-            return SavePurchaseModel(
+        fun purchaseModelWithTwoProductsMock(): SavePurchaseModel =
+            SavePurchaseModel(
                 id = "any id",
                 items = listOf(
                     PurchaseItemModel("uuid 1", BigDecimal.TEN),
@@ -17,15 +17,13 @@ class SavePurchaseModelMock {
                 deliveryAddress = DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
                 status = "PENDING"
             )
-        }
 
-        fun purchaseModelWithOneProductMock(): SavePurchaseModel {
-            return SavePurchaseModel(
+        fun purchaseModelWithOneProductMock(): SavePurchaseModel =
+            SavePurchaseModel(
                 id = "any id",
                 items = listOf(PurchaseItemModel("uuid 1", BigDecimal.TEN)),
                 deliveryAddress = DeliveryAddressModel("Fulano", "Rua teste", "14.440.000"),
                 status = "PENDING"
             )
-        }
     }
 }

@@ -5,6 +5,7 @@ import com.davidchaves.storeapi.domain.models.Purchase
 import com.davidchaves.storeapi.domain.usecases.SavePurchase
 import com.davidchaves.storeapi.mock.SavePurchaseModelMock.SavePurchaseModelMock.purchaseModelWithTwoProductsMock
 import com.davidchaves.storeapi.presentation.protocols.HttpRequest
+import com.davidchaves.storeapi.presentation.protocols.HttpResponse
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -27,20 +28,22 @@ class PurchaseControllerTest {
     @Test
     @DisplayName("Deve chamar método para salvar compra passando os valores corretos")
     fun shouldCallSavePurchaseWithCorrectValues() {
-        val purchase = purchaseModelWithTwoProductsMock()
-        given(savePurchase.save(purchase)).willReturn(Purchase("any id", "CREATED"))
-        val httpResponse = controller.handle(HttpRequest(purchase))
-        verify(savePurchase, times(1)).save(purchase)
-        assertEquals(201, httpResponse.statusCode)
+        val purchaseRequest = purchaseModelWithTwoProductsMock()
+        val purchaseResponse = Purchase("any id", "CREATED")
+        given(savePurchase.save(purchaseRequest)).willReturn(purchaseResponse)
+        val httpResponse = controller.handle(HttpRequest(purchaseRequest))
+        verify(savePurchase, times(1)).save(purchaseRequest)
+        assertEquals(HttpResponse.created(purchaseResponse), httpResponse)
     }
 
     @Test
     @DisplayName("Deve lançar erro se chamada para salvar compra lançar")
     fun shouldThrowIfSavePurchaseThrows() {
-        val purchase = purchaseModelWithTwoProductsMock()
-        given(savePurchase.save(purchase)).willThrow(StoreException(500, "", "Erro interno"))
-        val httpResponse = controller.handle(HttpRequest(purchase))
-        verify(savePurchase, times(1)).save(purchase)
-        assertEquals(500, httpResponse.statusCode)
+        val purchaseRequest = purchaseModelWithTwoProductsMock()
+        val exception = StoreException(409, "", "Erro interno. Conflito")
+        given(savePurchase.save(purchaseRequest)).willThrow(exception)
+        val httpResponse = controller.handle(HttpRequest(purchaseRequest))
+        verify(savePurchase, times(1)).save(purchaseRequest)
+        assertEquals(HttpResponse.error(exception), httpResponse)
     }
 }
