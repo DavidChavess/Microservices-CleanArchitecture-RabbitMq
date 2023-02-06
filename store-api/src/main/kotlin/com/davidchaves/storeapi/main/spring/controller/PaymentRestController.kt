@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api")
-class PurchaseRestController(
-    @Qualifier("purchaseController")
+class PaymentRestController(
+    @Qualifier("paymentController")
     private val controller: Controller,
     private val restAdapter: RestAdapter
 ) {
-    @PostMapping("/purchase")
-    fun save(@RequestBody body: SavePurchaseModel): ResponseEntity<Any> =
+    @PostMapping("/payment")
+    fun save(@RequestBody body: SavePaymentModel): ResponseEntity<Any> =
         restAdapter.handle(controller, body)
 }
