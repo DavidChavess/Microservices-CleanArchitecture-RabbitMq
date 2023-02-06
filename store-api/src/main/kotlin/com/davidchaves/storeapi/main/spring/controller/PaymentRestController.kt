@@ -1,7 +1,6 @@
 package com.davidchaves.storeapi.main.spring.controller
 
 import com.davidchaves.storeapi.domain.models.SavePaymentModel
-import com.davidchaves.storeapi.domain.models.SavePurchaseModel
 import com.davidchaves.storeapi.presentation.protocols.Controller
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.ResponseEntity

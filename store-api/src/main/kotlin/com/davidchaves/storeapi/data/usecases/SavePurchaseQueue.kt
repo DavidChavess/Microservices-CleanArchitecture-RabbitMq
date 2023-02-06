@@ -4,11 +4,11 @@ import com.davidchaves.storeapi.data.protocols.SendToQueue
 import com.davidchaves.storeapi.domain.models.Purchase
 import com.davidchaves.storeapi.domain.models.SavePurchaseModel
 import com.davidchaves.storeapi.domain.usecases.SavePurchase
-import com.davidchaves.storeapi.main.annotations.Component
+import com.davidchaves.storeapi.main.annotations.Usecase
 import com.davidchaves.storeapi.main.annotations.Property
 import java.util.UUID
 
-@Component
+@Usecase
 class SavePurchaseQueue(
     private val sendToQueue: SendToQueue,
     @Property("\${queues.purchase.exchange}") private val exchange: String
