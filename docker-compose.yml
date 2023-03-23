@@ -21,9 +21,3 @@ services:
       - 3306:3306
     volumes:
       - /mysql/data:/var/lib/mysql
-  adminer:
-    container_name: adminer-container
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
